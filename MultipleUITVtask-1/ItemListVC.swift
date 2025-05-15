@@ -19,76 +19,44 @@ class ItemListVC: UIViewController ,  UITableViewDelegate , UITableViewDataSourc
         case "Fruits":
             tcell.ItemName.text = Fruits[indexPath.row]
             tcell.ItemPrice.text = FruitsPrice[indexPath.row]
+            tcell.ItemImage.image = AssetsFruits[indexPath.row]
             Itemname = Fruits[indexPath.row]
             ItemDetails = fruitsDetails[indexPath.row]
+            ItemImage = AssetsFruits[indexPath.row]
 
             
-            
-            switch tcell.ItemName.text {
-            case "Apple":
-                tcell.ItemImage.image = UIImage(named: "Apple 2")
-            case "Banana":
-                tcell.ItemImage.image = UIImage(named: "banana 2")
-            case "Grapes":
-                tcell.ItemImage.image = UIImage(named: "grapes 2")
-            case "orange":
-                tcell.ItemImage.image = UIImage(named: "Orange 2")
-            default:
-                tcell.ItemImage.image = UIImage(named: "Orange 2")
-                
-            }
-            
+
             
             
         case "Vegetables":
             tcell.ItemName.text = Vegetables[indexPath.row]
             tcell.ItemPrice.text = VegetablesPrice[indexPath.row]
+            tcell.ItemImage.image = AssetsVegetables[indexPath.row]
             Itemname = Vegetables[indexPath.row]
             ItemDetails = VegetablesDetails[indexPath.row]
+            ItemImage = AssetsVegetables[indexPath.row]
+            
 
             
-            switch tcell.ItemName.text {
-            case "carrot":
-                tcell.ItemImage.image = UIImage(named: "carrot")
-            case "spinach":
-                tcell.ItemImage.image = UIImage(named: "spinach")
-            case "broccoli":
-                tcell.ItemImage.image = UIImage(named: "broccoli 2")
-            case "potato":
-                tcell.ItemImage.image = UIImage(named: "potato 2")
-            default:
-                tcell.ItemImage.image = UIImage(named: "Orange 2")
-                
-            }
+
 
         case "Grocery":
             tcell.ItemName.text = Grocery[indexPath.row]
             tcell.ItemPrice.text = GroceryPrice[indexPath.row]
+            tcell.ItemImage.image = AssetsGrocery[indexPath.row]
             Itemname = Grocery[indexPath.row]
             ItemDetails = GroceryDetail[indexPath.row]
+            ItemImage = AssetsGrocery[indexPath.row]
 
-            switch tcell.ItemName.text {
-            case "milk":
-                tcell.ItemImage.image = UIImage(named: "milk")
-                
-            case "eggs":
-                tcell.ItemImage.image = UIImage(named: "egg 2")
-            case "bread":
-                tcell.ItemImage.image = UIImage(named: "bread 2")
-            case "bananas":
-                tcell.ItemImage.image = UIImage(named: "banana 2")
-            default:
-                tcell.ItemImage.image = UIImage(named: "Orange 2")
-                
-            }
+
 
         default:
             
             tcell.ItemImage.image = UIImage(named: "egg 2")
 
         }
-        ItemImage = tcell.ItemImage.image!
-        Itemname = tcell.ItemName.text!
+//        ItemImage = tcell.ItemImage.image!
+//        Itemname = tcell.ItemName.text!
         
         return tcell
         
@@ -97,14 +65,39 @@ class ItemListVC: UIViewController ,  UITableViewDelegate , UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let sb = UIStoryboard(name: "Main", bundle: nil)
         let itemdetailsinfo = sb.instantiateViewController(withIdentifier: "itemdetails") as! ItemDetailVC
-        itemdetailsinfo.ItemDetails.text = ItemDetails
-        itemdetailsinfo.title = Itemname
-        itemdetailsinfo.ItemImage.image = ItemImage
+       
+//        
+//        itemdetailsinfo.title = Itemname
+//        itemdetailsinfo.ItemImage.image = AssetsFruits[indexPath.row]
+//        itemdetailsinfo.ItemDetails.text = fruitsDetails[indexPath.row]
+//        navigationController?.pushViewController(itemdetailsinfo, animated: true)
+        
+        switch recivedItem {
+           case "Fruits":
+               itemdetailsinfo.title1 = Fruits[indexPath.row]
+               itemdetailsinfo.SelectedImage = AssetsFruits[indexPath.row]
+               itemdetailsinfo.SelectedDetails = fruitsDetails[indexPath.row]
+               
+           case "Vegetables":
+               itemdetailsinfo.title1 = Vegetables[indexPath.row]
+            
+               itemdetailsinfo.SelectedImage = AssetsVegetables[indexPath.row]
+               itemdetailsinfo.SelectedDetails = VegetablesDetails[indexPath.row]
+               
+           case "Grocery":
+               itemdetailsinfo.title1 = Grocery[indexPath.row]
+               itemdetailsinfo.SelectedImage = AssetsGrocery[indexPath.row]
+               itemdetailsinfo.SelectedDetails = GroceryDetail[indexPath.row]
+               
+           default:
+               break
+           }
+        navigationController?.pushViewController(itemdetailsinfo, animated: true)
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return 180
         
     }
     
@@ -143,6 +136,24 @@ class ItemListVC: UIViewController ,  UITableViewDelegate , UITableViewDataSourc
     
     var GroceryPrice = ["$12","$15","$19","$31"]
     
+    var AssetsFruits = [
+        UIImage(named: "Apple"),
+        UIImage(named: "banana"),
+        UIImage(named: "grapes"),
+        UIImage(named: "Orange"),
+    ]
+    var AssetsVegetables = [
+        UIImage(named: "carrot"),
+        UIImage(named: "spinach"),
+        UIImage(named: "broccoli"),
+        UIImage(named: "potato"),
+    ]
+    var AssetsGrocery = [
+        UIImage(named: "milk"),
+        UIImage(named: "egg"),
+        UIImage(named: "bread"),
+        UIImage(named: "banana"),
+    ]
     
     
     var Itemname = ""
